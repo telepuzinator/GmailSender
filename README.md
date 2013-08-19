@@ -8,11 +8,12 @@ USAGE
 ===========
 
 1) Manifest:
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    	<uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
 
 2) Get token as in AuthActivity
+
 3) Send email
 
     new AsynkTask ... blabla {
