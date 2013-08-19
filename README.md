@@ -19,5 +19,5 @@ USAGE
 
     new AsynkTask ... blabla {
 	GmailOauthSender sender = new GmailOauthSender();
-        sender.sendMail("test", "body test", account, token, "");
+        sender.sendMail("test", "body test", account, token, "mailto@ya.ru");
     }
