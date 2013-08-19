@@ -7,7 +7,8 @@ android gmail sender with oauth
 USAGE
 ===========
 
-1) Manifest:
+1) Manifest
+    
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
