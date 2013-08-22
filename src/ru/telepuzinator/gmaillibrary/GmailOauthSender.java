@@ -68,15 +68,15 @@ public class GmailOauthSender {
         }
         if(smtpTransport == null) return;
 
-            MimeMessage message = new MimeMessage(session);
-            DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
-            message.setSender(new InternetAddress(user));
-            message.setSubject(subject);
-            message.setDataHandler(handler);
-            if (recipients.indexOf(',') > 0)
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-            else
-                message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
-            smtpTransport.sendMessage(message, message.getAllRecipients());
+        MimeMessage message = new MimeMessage(session);
+        DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
+        message.setSender(new InternetAddress(user));
+        message.setSubject(subject);
+        message.setDataHandler(handler);
+        if (recipients.indexOf(',') > 0)
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
+        else
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+        smtpTransport.sendMessage(message, message.getAllRecipients());
     }
 }
