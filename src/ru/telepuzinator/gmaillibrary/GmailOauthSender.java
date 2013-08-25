@@ -5,6 +5,7 @@ import com.sun.mail.util.BASE64EncoderStream;
 
 import org.apache.http.auth.AuthenticationException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -48,6 +49,12 @@ public class GmailOauthSender {
     public synchronized void sendMail(String subject, String body, String user,
                                       String oauthToken, String recipients) throws IOException,
             AuthenticationException, MessagingException {
+        sendMail(subject, body, user, oauthToken, recipients);
+    }
+
+    public synchronized void sendMail(String subject, String body, String user,
+                                      String oauthToken, String recipients, File... files) throws IOException,
+            AuthenticationException, MessagingException {
         SMTPTransport smtpTransport = null;
         try {
             smtpTransport = connectToSmtp("smtp.gmail.com",
@@ -68,15 +75,11 @@ public class GmailOauthSender {
         }
         if(smtpTransport == null) return;
 
-        MimeMessage message = new MimeMessage(session);
-        DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
-        message.setSender(new InternetAddress(user));
-        message.setSubject(subject);
-        message.setDataHandler(handler);
-        if (recipients.indexOf(',') > 0)
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-        else
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+        MessageBuilder builder = new MessageBuilder(session);
+        builder.setSender(user).setSubject(subject).setBody(body)
+                .setFiles(files).setRecipients(recipients);
+
+        MimeMessage message = builder.build();
         smtpTransport.sendMessage(message, message.getAllRecipients());
     }
 }
